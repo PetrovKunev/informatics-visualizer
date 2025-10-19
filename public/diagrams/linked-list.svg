@@ -1,0 +1,20 @@
+<svg width="360" height="140" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="20" width="320" height="100" rx="18" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2" />
+  <g font-family="Arial" font-size="12" fill="#5B21B6">
+    <rect x="40" y="50" width="50" height="40" fill="#fff" stroke="#7C3AED" stroke-width="2" />
+    <text x="65" y="75" text-anchor="middle">head</text>
+    <line x1="90" y1="70" x2="120" y2="70" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="120" y="50" width="50" height="40" fill="#fff" stroke="#7C3AED" stroke-width="2" />
+    <text x="145" y="75" text-anchor="middle">5</text>
+    <line x1="170" y1="70" x2="200" y2="70" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)" />
+    <rect x="200" y="50" width="50" height="40" fill="#fff" stroke="#7C3AED" stroke-width="2" />
+    <text x="225" y="75" text-anchor="middle">9</text>
+    <line x1="250" y1="70" x2="280" y2="70" stroke="#7C3AED" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="305" y="75" text-anchor="middle">null</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 Z" fill="#7C3AED" />
+    </marker>
+  </defs>
+</svg>

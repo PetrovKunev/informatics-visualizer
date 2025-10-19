@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+dist/
+
+# Env / tooling
+.env*
+.vscode/
+coverage/
+playwright-report/
+test-results/
+*.log

@@ -1,1 +1,70 @@
-# informatics-visualizer
+# CS Visual Lab
+
+Образователно уеб приложение на Next.js 14 + TypeScript за визуализиране на основни концепции от информатика: условни оператори, цикли, структури от данни и алгоритми. Интерфейсът, документацията и куизовете са изцяло на български, а кодът следва съвременни конвенции.
+
+## Предварителни изисквания
+- Node.js ≥ 18
+- pnpm ≥ 8
+- Git (за управление на версията)
+
+## Инсталация и стартиране
+```bash
+pnpm install
+pnpm dev
+```
+Отворете [`http://localhost:3000`](http://localhost:3000), за да разгледате приложението в режим на разработка.
+
+### Основни скриптове
+| Скрипт | Описание |
+| --- | --- |
+| `pnpm dev` | Стартира Next.js dev сървър |
+| `pnpm build` | Генерира production build |
+| `pnpm start` | Пуска production build |
+| `pnpm lint` | ESLint (Next Core Web Vitals) |
+| `pnpm typecheck` | Строг TypeScript без емит |
+| `pnpm test` | Vitest unit тестове |
+| `pnpm e2e` | Playwright e2e сценарии |
+| `pnpm format` | Prettier формат на файловете |
+| `pnpm shadcn` | Информация за разширяване на shadcn/ui |
+
+## Структура на проекта
+```
+src/
+ ├─ app/                 # App Router маршрути по модули
+ ├─ components/          # UI, визуализатори, контролери и куизове
+ ├─ algorithms/          # Алгоритми и структури от данни
+ ├─ content/lessons/     # Конфигурация на уроците
+ ├─ constants/           # Регистри и константи
+ ├─ hooks/               # Локализирани Zustand store-ове
+ ├─ lib/                 # Помощни функции и регистри
+ └─ tests/               # Unit (Vitest) и e2e (Playwright) тестове
+```
+Допълнително: `docs/architecture.md` описва архитектурата, а `public/diagrams/` съдържа SVG диаграми за всяка тема.
+
+## Разширяване на уроците
+1. Създайте нов файл в `src/content/lessons/<категория>.ts` и добавете свеж урок към експортирания `LessonCollection`.
+2. Добавете нова визуализация / компоненти за контрол (ако е необходимо) в `src/components/visualizers`.
+3. Регистрирайте алгоритъма или структурата в `src/constants` и/или `src/lib/algorithm-registry.ts`.
+4. Актуализирайте страницата в `src/app/(modules)/...`, за да зареди новия урок и визуализация.
+5. Добавете тестове в `src/tests/unit` и, при нужда, Playwright сценарий.
+
+## Тестове и качество
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm e2e
+```
+Vitest покрива сортировки, търсене и операции със стек, опашка и списък. Playwright e2e проверява, че визуализацията за сортиране стартира и рефлектира стъпките. CI pipeline (`.github/workflows/ci.yml`) изпълнява lint, typecheck, тестове и build.
+
+## Деплой на Vercel
+1. Fork/clone репозитория и качете кода в GitHub.
+2. Във Vercel създайте нов проект и изберете това хранилище.
+3. Задайте **Build Command** `pnpm build` и **Install Command** `pnpm install` (виж `vercel.json`).
+4. Изберете Node 18 среда и добавете `NEXT_PUBLIC_APP_NAME` при нужда.
+5. Разпределете. Vercel ще използва Next.js билд системата и автоматично ще активира ISR/Edge функциите при необходимост.
+
+## Пътна карта
+- TODO: Допълнителни визуализации за хеш таблици, дървета, графи и BFS/DFS.
+- TODO: Интеграция на Monaco Editor за редактиране на код в реално време.
+- TODO: Добавяне на повече e2e сценарии и автоматизирани Lighthouse проверки.
