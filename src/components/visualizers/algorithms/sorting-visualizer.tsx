@@ -192,6 +192,7 @@ export function SortingVisualizer({
   };
 
   const highlighted = new Set(activeStep?.highlightedLines ?? []);
+  const activeStepId = activeStep?.highlightedLines?.[0];
 
   return (
     <div className="space-y-6">
@@ -199,7 +200,7 @@ export function SortingVisualizer({
         title={`Сортиране: ${algorithm.name}`}
         description={algorithm.description}
         pseudocode={PSEUDOCODE}
-        activeStepId={activeStep?.highlightedLines?.[0]}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <div className="flex flex-col gap-2 text-sm text-slate-600">
             <p>
@@ -242,7 +243,11 @@ export function SortingVisualizer({
                 min={30}
                 max={80}
                 value={[barSize]}
-                onValueChange={([value]) => setBarSize(value)}
+                onValueChange={([value]) => {
+                  if (value !== undefined) {
+                    setBarSize(value);
+                  }
+                }}
                 className="w-40"
               />
             </div>

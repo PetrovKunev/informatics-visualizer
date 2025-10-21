@@ -23,14 +23,21 @@ export const insertionSort: AlgorithmImplementation<number[], InsertionSortState
     const arr = [...input];
     for (let i = 1; i < arr.length; i++) {
       const key = arr[i];
+      if (key === undefined) {
+        continue;
+      }
       let j = i - 1;
       yield {
         state: { array: [...arr], i, j, key },
         description: `Избираме ключов елемент ${key} на позиция ${i}`,
         highlightedLines: ['select']
       };
-      while (j >= 0 && arr[j] > key) {
-        arr[j + 1] = arr[j];
+      while (j >= 0) {
+        const current = arr[j];
+        if (current === undefined || current <= key) {
+          break;
+        }
+        arr[j + 1] = current;
         j--;
         yield {
           state: { array: [...arr], i, j, key },
@@ -46,7 +53,12 @@ export const insertionSort: AlgorithmImplementation<number[], InsertionSortState
       };
     }
     return {
-      state: { array: [...arr], i: arr.length - 1, j: arr.length - 1, key: arr.at(-1) ?? 0 },
+      state: {
+        array: [...arr],
+        i: arr.length > 0 ? arr.length - 1 : 0,
+        j: arr.length > 0 ? arr.length - 1 : 0,
+        key: arr.at(-1) ?? 0
+      },
       description: 'Масивът е сортиран.',
       highlightedLines: ['end']
     };

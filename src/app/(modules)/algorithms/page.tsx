@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { SortingVisualizer } from '@/components/visualizers/algorithms/sorting-visualizer';
 import { ArrayVisualizer } from '@/components/visualizers/data-structures/array-visualizer';
 import { QuizCard } from '@/components/quiz/quiz-card';
@@ -6,6 +6,51 @@ import { algorithmLessons } from '@/content/lessons/algorithms';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComplexityBadge } from '@/components/common/complexity-badge';
 import { MonacoSnippet } from '@/components/common/monaco-snippet';
+
+const QUICK_SORT_TS_CODE = `function quickSort(array: number[]): number[] {
+  if (array.length <= 1) return array;
+  const pivot = array[array.length - 1];
+  const left: number[] = [];
+  const right: number[] = [];
+  for (let i = 0; i < array.length - 1; i++) {
+    if (array[i] <= pivot) left.push(array[i]);
+    else right.push(array[i]);
+  }
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}`;
+
+const QUICK_SORT_CSHARP_CODE = `using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public static class Sorter
+{
+    public static int[] QuickSort(int[] array)
+    {
+        if (array.Length <= 1) return array;
+
+        var pivot = array[^1];
+        var left = new List<int>();
+        var right = new List<int>();
+
+        for (var i = 0; i < array.Length - 1; i++)
+        {
+            if (array[i] <= pivot)
+            {
+                left.Add(array[i]);
+            }
+            else
+            {
+                right.Add(array[i]);
+            }
+        }
+
+        return QuickSort(left.ToArray())
+            .Concat(new[] { pivot })
+            .Concat(QuickSort(right.ToArray()))
+            .ToArray();
+    }
+}`;
 
 export const metadata: Metadata = {
   title: 'Алгоритми за търсене и сортиране | CS Visual Lab',
@@ -17,6 +62,10 @@ export default function AlgorithmsModulePage() {
   const searchLesson = algorithmLessons.linearSearch;
   const binaryLesson = algorithmLessons.binarySearch;
   const sortingLesson = algorithmLessons.sorting;
+
+  if (!searchLesson || !binaryLesson || !sortingLesson) {
+    throw new Error('Липсват дефиниции за уроците в модула „Алгоритми“.');
+  }
 
   return (
     <div className="container space-y-12 py-12">
@@ -88,9 +137,10 @@ export default function AlgorithmsModulePage() {
             </Card>
           ))}
         </div>
-        <MonacoSnippet
-          title="Quick Sort (TypeScript)"
-          code={`function quickSort(array: number[]): number[] {\n  if (array.length <= 1) return array;\n  const pivot = array[array.length - 1];\n  const left: number[] = [];\n  const right: number[] = [];\n  for (let i = 0; i < array.length - 1; i++) {\n    if (array[i] <= pivot) left.push(array[i]);\n    else right.push(array[i]);\n  }\n  return [...quickSort(left), pivot, ...quickSort(right)];\n}`} />
+        <div className="grid gap-6 lg:grid-cols-2">
+          <MonacoSnippet title="Quick Sort (TypeScript)" code={QUICK_SORT_TS_CODE} />
+          <MonacoSnippet language="csharp" title="Quick Sort (C#)" code={QUICK_SORT_CSHARP_CODE} />
+        </div>
       </section>
 
       <section className="grid gap-6 md:grid-cols-2">

@@ -10,44 +10,16 @@ import { createQueue } from '@/algorithms/data-structures/queue';
 import { createLinkedList } from '@/algorithms/data-structures/linked-list';
 
 export const ALL_SORTING_ALGORITHMS = {
-  bubble: {
-    id: 'bubble',
-    name: 'Балонно сортиране',
-    run: bubbleSort
-  },
-  selection: {
-    id: 'selection',
-    name: 'Сортиране чрез избор',
-    run: selectionSort
-  },
-  insertion: {
-    id: 'insertion',
-    name: 'Сортиране чрез вмъкване',
-    run: insertionSort
-  },
-  merge: {
-    id: 'merge',
-    name: 'Сортиране чрез сливане',
-    run: mergeSort
-  },
-  quick: {
-    id: 'quick',
-    name: 'Бързо сортиране',
-    run: quickSort
-  }
+  bubble: bubbleSort,
+  selection: selectionSort,
+  insertion: insertionSort,
+  merge: mergeSort,
+  quick: quickSort
 } as const;
 
 export const SEARCH_ALGORITHMS = {
-  linear: {
-    id: 'linear',
-    name: 'Линейно търсене',
-    run: linearSearch
-  },
-  binary: {
-    id: 'binary',
-    name: 'Двоично търсене',
-    run: binarySearch
-  }
+  linear: linearSearch,
+  binary: binarySearch
 } as const;
 
 export const DATA_STRUCTURE_FACTORIES = {

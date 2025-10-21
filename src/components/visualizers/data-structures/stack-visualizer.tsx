@@ -189,7 +189,7 @@ export function StackVisualizer({
         title="Стек (LIFO)"
         description="Наблюдавайте добавянето и премахването на елементи от върха и какво се случва при пъл/празен стек."
         pseudocode={PSEUDOCODE}
-        activeStepId={activeStepId}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm">
             <p>{summary}</p>

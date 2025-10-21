@@ -41,8 +41,7 @@ interface StepState {
 }
 
 export function ArrayVisualizer({
-  initialData = [2, 4, 7, 11, 15, 20],
-  speed = 1
+  initialData = [2, 4, 7, 11, 15, 20]
 }: VisualizerProps<StepState, number[]>) {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmKey>('linear');
   const [array, setArray] = useState<number[]>(() =>
@@ -166,13 +165,15 @@ export function ArrayVisualizer({
     storeRef.current.getState().setSpeed(value);
   };
 
+  const activeStepId = activeStep?.highlightedLines?.[0];
+
   return (
     <div className="space-y-6">
       <VisualizationFrame
         title="Манипулация на масив и търсене"
         description="Сравнете линейното и двоичното търсене. Въведете стойности, изберете алгоритъм и проследете стъпките."
         pseudocode={pseudocode}
-        activeStepId={activeStep?.highlightedLines?.[0]}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <p className="text-sm text-slate-600">
             Последна стъпка: <span className="font-semibold">{activeStep?.description ?? '—'}</span>

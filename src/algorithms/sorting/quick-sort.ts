@@ -19,6 +19,9 @@ function* quickSortGenerator(
 
   const pivotIndex = right;
   const pivot = arr[pivotIndex];
+  if (pivot === undefined) {
+    return;
+  }
   let partitionIndex = left;
 
   yield {
@@ -28,8 +31,17 @@ function* quickSortGenerator(
   };
 
   for (let i = left; i < right; i++) {
-    if (arr[i] <= pivot) {
-      [arr[i], arr[partitionIndex]] = [arr[partitionIndex], arr[i]];
+    const current = arr[i];
+    const partitionValue = arr[partitionIndex];
+    if (
+      current === undefined ||
+      partitionValue === undefined
+    ) {
+      continue;
+    }
+    if (current <= pivot) {
+      arr[i] = partitionValue;
+      arr[partitionIndex] = current;
       yield {
         state: { array: [...arr], left, right, pivotIndex, phase: 'swap' },
         description: `Преместваме стойността ${arr[partitionIndex]} преди пивота`,
@@ -39,7 +51,12 @@ function* quickSortGenerator(
     }
   }
 
-  [arr[partitionIndex], arr[right]] = [arr[right], arr[partitionIndex]];
+  const finalPartitionValue = arr[partitionIndex];
+  const rightValue = arr[right];
+  if (finalPartitionValue !== undefined && rightValue !== undefined) {
+    arr[partitionIndex] = rightValue;
+    arr[right] = finalPartitionValue;
+  }
   yield {
     state: { array: [...arr], left, right, pivotIndex: partitionIndex, phase: 'swap' },
     description: `Поставяме пивота на позиция ${partitionIndex}`,

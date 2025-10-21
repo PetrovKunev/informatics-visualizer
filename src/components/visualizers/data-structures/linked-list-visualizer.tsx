@@ -155,7 +155,7 @@ export function LinkedListVisualizer({
         title="Свързан списък"
         description="Вижте как се вмъкват и премахват възли, като следите връзките между тях."
         pseudocode={PSEUDOCODE}
-        activeStepId={activeStepId}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <div className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
             <p>{stepSummary}</p>

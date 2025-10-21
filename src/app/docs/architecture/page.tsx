@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Архитектура на проекта | CS Visual Lab'

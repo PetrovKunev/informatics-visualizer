@@ -32,7 +32,10 @@ export function VisualizationFrame({
         </div>
         {footer}
       </div>
-      <PseudocodePanel steps={pseudocode} activeStepId={activeStepId} />
+      <PseudocodePanel
+        steps={pseudocode}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
+      />
     </section>
   );
 }

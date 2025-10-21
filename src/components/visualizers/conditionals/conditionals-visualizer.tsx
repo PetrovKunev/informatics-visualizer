@@ -58,7 +58,11 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
   }, [a, b]);
 
   useEffect(() => {
-    const initial = steps[0].state as ConditionalsState;
+    const initialStep = steps[0];
+    if (!initialStep) {
+      return;
+    }
+    const initial = initialStep.state as ConditionalsState;
     storeRef.current.getState().setState(initial);
     storeRef.current.getState().setStepIndex(0);
     return () => {
@@ -70,11 +74,14 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
 
   const runVisualization = () => {
     if (prefersReducedMotion()) {
-      const final = steps[steps.length - 1]?.state as ConditionalsState;
+      const finalState = steps[steps.length - 1]?.state as ConditionalsState | undefined;
+      if (!finalState) {
+        return;
+      }
       storeRef.current.getState().setStatus('finished');
       storeRef.current.getState().setStepIndex(steps.length - 1);
-      storeRef.current.getState().setState(final);
-      setBranch(final?.branch ?? 'true');
+      storeRef.current.getState().setState(finalState);
+      setBranch(finalState.branch ?? 'true');
       return;
     }
     storeRef.current.getState().setStatus('running');
@@ -93,9 +100,11 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
         return;
       }
       storeRef.current.getState().setStepIndex(index);
-      const current = steps[index].state as ConditionalsState;
-      storeRef.current.getState().setState(current);
-      setBranch(current.branch);
+      const current = steps[index]?.state as ConditionalsState | undefined;
+      if (current) {
+        storeRef.current.getState().setState(current);
+        setBranch(current.branch);
+      }
     }, Math.max(300, 1200 / speed));
   };
 
@@ -116,9 +125,11 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
   const handleStep = () => {
     const nextIndex = Math.min(stepIndex + 1, steps.length - 1);
     storeRef.current.getState().setStepIndex(nextIndex);
-    const current = steps[nextIndex].state as ConditionalsState;
-    storeRef.current.getState().setState(current);
-    setBranch(current.branch);
+    const current = steps[nextIndex]?.state as ConditionalsState | undefined;
+    if (current) {
+      storeRef.current.getState().setState(current);
+      setBranch(current.branch);
+    }
     if (nextIndex === steps.length - 1) {
       storeRef.current.getState().setStatus('finished');
       if (intervalRef.current) {
@@ -132,9 +143,11 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
       window.clearInterval(intervalRef.current);
     }
     storeRef.current.getState().reset();
-    const initial = steps[0].state as ConditionalsState;
-    storeRef.current.getState().setState(initial);
-    setBranch(initial.branch);
+    const initial = steps[0]?.state as ConditionalsState | undefined;
+    if (initial) {
+      storeRef.current.getState().setState(initial);
+      setBranch(initial.branch);
+    }
   };
 
   const toggleValues = () => {
@@ -152,7 +165,7 @@ export function ConditionalsVisualizer({ speed = 1 }: VisualizerProps<Conditiona
         title="Визуализация на if / else"
         description="Наблюдавайте как условието избира между истински и фалшив клон."
         pseudocode={PSEUDOCODE}
-        activeStepId={activeStepId}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
             <p>

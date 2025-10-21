@@ -189,7 +189,7 @@ export function QueueVisualizer({
         title="Опашка (FIFO)"
         description="Вижте как опашката обслужва елементите в реда на постъпване."
         pseudocode={PSEUDOCODE}
-        activeStepId={activeStepId}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm">
             <p>{summary}</p>

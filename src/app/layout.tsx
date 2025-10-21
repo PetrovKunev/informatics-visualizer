@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="bg" className={inter.variable}>
       <body className={cn('min-h-screen bg-background font-sans antialiased')}>
         {/* Клиентски провайдъри и UI могат да се използват вътре в server layout */}
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider>
           <SiteHeader />
           {children}
           <SiteFooter />
@@ -50,4 +50,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-

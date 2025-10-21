@@ -64,7 +64,11 @@ export function VisualizerControls({
           max={2}
           step={0.1}
           value={[speed]}
-          onValueChange={([value]) => onSpeedChange(value)}
+          onValueChange={([value]) => {
+            if (value !== undefined) {
+              onSpeedChange(value);
+            }
+          }}
           aria-label="Скорост на визуализацията"
         />
       </div>

@@ -39,7 +39,11 @@ export function LoopsVisualizer({
     let accumulator = 0;
     produced.push({ id: 'init', label: 'Инициализация', index: -1, accumulator });
     for (let i = 0; i < data.length; i++) {
-      accumulator += data[i];
+      const value = data[i];
+      if (value === undefined) {
+        continue;
+      }
+      accumulator += value;
       produced.push({
         id: 'loop',
         label: `Итерация ${i}`,
@@ -48,7 +52,7 @@ export function LoopsVisualizer({
       });
       produced.push({
         id: 'update',
-        label: `Добавяне на стойността ${data[i]}`,
+        label: `Добавяне на стойността ${value}`,
         index: i,
         accumulator
       });
@@ -129,6 +133,7 @@ export function LoopsVisualizer({
   };
 
   const currentStep = steps[stepIndex];
+  const activeStepId = currentStep?.id;
 
   return (
     <div className="space-y-6">
@@ -136,7 +141,7 @@ export function LoopsVisualizer({
         title="Обхождане на масив с цикъл"
         description="Следете как цикълът for преминава през всеки елемент и натрупва сума."
         pseudocode={PSEUDOCODE}
-        activeStepId={currentStep?.id}
+        {...(activeStepId !== undefined ? { activeStepId } : {})}
         footer={
           <p className="text-sm text-slate-600">
             Натрупана сума: <span className="font-semibold">{currentStep?.accumulator ?? 0}</span>

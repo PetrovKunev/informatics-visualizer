@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { ArrayVisualizer } from '@/components/visualizers/data-structures/array-visualizer';
 import { LinkedListVisualizer } from '@/components/visualizers/data-structures/linked-list-visualizer';
 import { StackVisualizer } from '@/components/visualizers/data-structures/stack-visualizer';
@@ -7,6 +7,7 @@ import { QuizCard } from '@/components/quiz/quiz-card';
 import { dataStructureLessons } from '@/content/lessons/data-structures';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComplexityBadge } from '@/components/common/complexity-badge';
+import { MonacoSnippet } from '@/components/common/monaco-snippet';
 
 export const metadata: Metadata = {
   title: 'Структури от данни | CS Visual Lab',
@@ -23,6 +24,77 @@ const VISUALIZERS: Record<StructureKey, JSX.Element> = {
   linkedList: <LinkedListVisualizer />,
   stack: <StackVisualizer />,
   queue: <QueueVisualizer />
+};
+
+const STRUCTURE_CODE_SNIPPETS: Record<
+  StructureKey,
+  { title: string; code: string }
+> = {
+  arrays: {
+    title: 'Работа с масив (C#)',
+    code: `static int FindMax(int[] values)
+{
+    var max = int.MinValue;
+    for (var i = 0; i < values.Length; i++)
+    {
+        if (values[i] > max)
+        {
+            max = values[i];
+        }
+    }
+    return max;
+}`
+  },
+  linkedList: {
+    title: 'Свързан списък (C#)',
+    code: `using System.Collections.Generic;
+
+static LinkedList<int> BuildList(int[] values)
+{
+    var list = new LinkedList<int>();
+    foreach (var value in values)
+    {
+        list.AddLast(value);
+    }
+    return list;
+}`
+  },
+  stack: {
+    title: 'Стек операции (C#)',
+    code: `using System;
+using System.Collections.Generic;
+
+static void EvaluateStack()
+{
+    var stack = new Stack<string>();
+    stack.Push("HTML");
+    stack.Push("CSS");
+    stack.Push("JS");
+
+    while (stack.Count > 0)
+    {
+        Console.WriteLine(stack.Pop());
+    }
+}`
+  },
+  queue: {
+    title: 'Опашка операции (C#)',
+    code: `using System;
+using System.Collections.Generic;
+
+static void ServeQueue()
+{
+    var queue = new Queue<string>();
+    queue.Enqueue("Анна");
+    queue.Enqueue("Борис");
+    queue.Enqueue("Галя");
+
+    while (queue.Count > 0)
+    {
+        Console.WriteLine(queue.Dequeue());
+    }
+}`
+  }
 };
 
 export default function DataStructuresModulePage() {
@@ -59,6 +131,16 @@ export default function DataStructuresModulePage() {
               </div>
             </div>
             {VISUALIZERS[key]}
+            <div className="space-y-3">
+              <p className="text-sm text-slate-600">
+                Приложете показаните операции в реална C# имплементация.
+              </p>
+              <MonacoSnippet
+                language="csharp"
+                title={STRUCTURE_CODE_SNIPPETS[key].title}
+                code={STRUCTURE_CODE_SNIPPETS[key].code}
+              />
+            </div>
             <div className="grid gap-6 md:grid-cols-3">
               {lesson.sections.map((section) => (
                 <Card key={section.id}>

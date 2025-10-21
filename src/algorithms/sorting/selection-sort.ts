@@ -23,12 +23,18 @@ export const selectionSort: AlgorithmImplementation<number[], SelectionSortState
     for (let i = 0; i < arr.length - 1; i++) {
       let minIndex = i;
       for (let j = i + 1; j < arr.length; j++) {
+        const candidate = arr[j];
+        const currentMin = arr[minIndex];
         yield {
           state: { array: [...arr], i, minIndex, j },
           description: `Сравняваме индекс ${j} с текущия минимум ${minIndex}`,
           highlightedLines: ['compare']
         };
-        if (arr[j] < arr[minIndex]) {
+        if (
+          candidate !== undefined &&
+          currentMin !== undefined &&
+          candidate < currentMin
+        ) {
           minIndex = j;
           yield {
             state: { array: [...arr], i, minIndex, j },
@@ -38,7 +44,12 @@ export const selectionSort: AlgorithmImplementation<number[], SelectionSortState
         }
       }
       if (minIndex !== i) {
-        [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+        const valueAtI = arr[i];
+        const valueAtMin = arr[minIndex];
+        if (valueAtI !== undefined && valueAtMin !== undefined) {
+          arr[i] = valueAtMin;
+          arr[minIndex] = valueAtI;
+        }
         yield {
           state: { array: [...arr], i, minIndex, j: minIndex },
           description: `Размяна на позициите ${i} и ${minIndex}`,
@@ -47,7 +58,12 @@ export const selectionSort: AlgorithmImplementation<number[], SelectionSortState
       }
     }
     return {
-      state: { array: [...arr], i: arr.length - 1, minIndex: arr.length - 1, j: arr.length - 1 },
+      state: {
+        array: [...arr],
+        i: arr.length > 0 ? arr.length - 1 : 0,
+        minIndex: arr.length > 0 ? arr.length - 1 : 0,
+        j: arr.length > 0 ? arr.length - 1 : 0
+      },
       description: 'Масивът е сортиран.',
       highlightedLines: ['end']
     };

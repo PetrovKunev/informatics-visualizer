@@ -29,7 +29,7 @@ export function createLinkedList<T = number>(values: T[] = []): LinkedListContro
 
   const toArray = (): LinkedListState<T> => {
     const nodes: LinkedListState<T>['nodes'] = [];
-    let current = head;
+    let current: LinkedListNode<T> | null = head;
     let id = 0;
     while (current) {
       const nodeId = id++;
@@ -58,7 +58,7 @@ export function createLinkedList<T = number>(values: T[] = []): LinkedListContro
       length++;
       return snapshot();
     }
-    let current = head;
+    let current: LinkedListNode<T> | null = head;
     while (current.next) {
       current = current.next;
     }
@@ -75,14 +75,15 @@ export function createLinkedList<T = number>(values: T[] = []): LinkedListContro
       return insertAtTail(value);
     }
     const newNode: LinkedListNode<T> = { value, next: null };
-    let current = head;
     let prev: LinkedListNode<T> | null = null;
+    let cursor: LinkedListNode<T> | null = head;
     let currentIndex = 0;
-    while (current && currentIndex < index) {
-      prev = current;
-      current = current.next;
+    while (cursor && currentIndex < index) {
+      prev = cursor;
+      cursor = cursor.next;
       currentIndex++;
     }
+    const current = cursor;
     if (prev) {
       prev.next = newNode;
       newNode.next = current ?? null;
@@ -100,14 +101,15 @@ export function createLinkedList<T = number>(values: T[] = []): LinkedListContro
       length = Math.max(0, length - 1);
       return snapshot();
     }
-    let current = head;
     let prev: LinkedListNode<T> | null = null;
+    let cursor: LinkedListNode<T> | null = head;
     let currentIndex = 0;
-    while (current && currentIndex < index) {
-      prev = current;
-      current = current.next;
+    while (cursor && currentIndex < index) {
+      prev = cursor;
+      cursor = cursor.next;
       currentIndex++;
     }
+    const current = cursor;
     if (prev && current) {
       prev.next = current.next;
       length = Math.max(0, length - 1);

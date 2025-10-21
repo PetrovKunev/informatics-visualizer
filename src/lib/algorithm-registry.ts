@@ -1,7 +1,7 @@
 import type { AlgorithmImplementation } from '@/types/algorithm';
 import { ALL_SORTING_ALGORITHMS, SEARCH_ALGORITHMS } from '@/constants/algorithms';
 
-type AlgorithmMap = Record<string, AlgorithmImplementation<any, any>>;
+type AlgorithmMap = Record<string, AlgorithmImplementation<unknown, unknown>>;
 
 const registry: AlgorithmMap = {
   ...Object.values(ALL_SORTING_ALGORITHMS).reduce<AlgorithmMap>((acc, algo) => {
@@ -14,10 +14,10 @@ const registry: AlgorithmMap = {
   }, {})
 };
 
-export function getAlgorithmById(id: string) {
+export function getAlgorithmById(id: string): AlgorithmImplementation<unknown, unknown> | undefined {
   return registry[id];
 }
 
-export function listAlgorithms(): AlgorithmImplementation<any, any>[] {
+export function listAlgorithms(): AlgorithmImplementation<unknown, unknown>[] {
   return Object.values(registry);
 }

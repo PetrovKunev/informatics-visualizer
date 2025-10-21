@@ -30,6 +30,9 @@ export const binarySearch: AlgorithmImplementation<
     while (left <= right) {
       const mid = Math.floor((left + right) / 2);
       const current = array[mid];
+      if (current === undefined) {
+        break;
+      }
       if (current === target) {
         return {
           state: { array: [...array], target, left, right, mid, foundIndex: mid },

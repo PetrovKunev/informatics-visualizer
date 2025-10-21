@@ -1,9 +1,30 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { LoopsVisualizer } from '@/components/visualizers/loops/loops-visualizer';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { loopsLessons } from '@/content/lessons/loops';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComplexityBadge } from '@/components/common/complexity-badge';
+import { MonacoSnippet } from '@/components/common/monaco-snippet';
+
+const LOOPS_CSHARP_CODE = `static int SumPositive(int[] numbers)
+{
+    var total = 0;
+    foreach (var number in numbers)
+    {
+        if (number > 0)
+        {
+            total += number;
+        }
+    }
+
+    var index = 0;
+    while (index < numbers.Length && numbers[index] != 0)
+    {
+        index++;
+    }
+
+    return total;
+}`;
 
 export const metadata: Metadata = {
   title: 'Цикли и повторения | CS Visual Lab',
@@ -13,6 +34,10 @@ export const metadata: Metadata = {
 
 export default function LoopsModulePage() {
   const lesson = loopsLessons.basics;
+
+  if (!lesson) {
+    throw new Error('Липсва дефиниция за урока в модула „Цикли“.');
+  }
 
   return (
     <div className="container space-y-12 py-12">
@@ -62,6 +87,14 @@ export default function LoopsModulePage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-slate-900">Визуализация</h2>
         <LoopsVisualizer />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold text-slate-900">Пример на C# код</h2>
+        <p className="text-sm text-slate-600">
+          Вижте как концепциите за for и while цикли изглеждат в C# програма.
+        </p>
+        <MonacoSnippet language="csharp" title="Цикли и повтаряне (C#)" code={LOOPS_CSHARP_CODE} />
       </section>
 
       <section className="space-y-6">

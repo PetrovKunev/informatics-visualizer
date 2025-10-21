@@ -31,24 +31,41 @@ function* mergeSortGenerator(
   let i = left;
   let j = mid + 1;
   while (i <= mid && j <= right) {
-    if (arr[i] <= arr[j]) {
-      temp.push(arr[i]);
+    const leftValue = arr[i];
+    const rightValue = arr[j];
+    if (leftValue === undefined || rightValue === undefined) {
+      break;
+    }
+    if (leftValue <= rightValue) {
+      temp.push(leftValue);
       i++;
     } else {
-      temp.push(arr[j]);
+      temp.push(rightValue);
       j++;
     }
   }
   while (i <= mid) {
-    temp.push(arr[i]);
+    const value = arr[i];
+    if (value === undefined) {
+      break;
+    }
+    temp.push(value);
     i++;
   }
   while (j <= right) {
-    temp.push(arr[j]);
+    const value = arr[j];
+    if (value === undefined) {
+      break;
+    }
+    temp.push(value);
     j++;
   }
   for (let k = 0; k < temp.length; k++) {
-    arr[left + k] = temp[k];
+    const value = temp[k];
+    if (value === undefined) {
+      continue;
+    }
+    arr[left + k] = value;
   }
   yield {
     state: { array: [...arr], left, mid, right, phase: 'merge' },

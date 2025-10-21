@@ -23,13 +23,19 @@ export const bubbleSort: AlgorithmImplementation<number[], BubbleSortState> = {
     for (let i = 0; i < arr.length; i++) {
       swapped = false;
       for (let j = 0; j < arr.length - i - 1; j++) {
+        const left = arr[j];
+        const right = arr[j + 1];
         yield {
           state: { array: [...arr], i, j, swapped },
           description: `Сравнение на позиции ${j} и ${j + 1}`,
           highlightedLines: ['compare']
         };
-        if (arr[j] > arr[j + 1]) {
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        if (left === undefined || right === undefined) {
+          continue;
+        }
+        if (left > right) {
+          arr[j] = right;
+          arr[j + 1] = left;
           swapped = true;
           yield {
             state: { array: [...arr], i, j, swapped },
@@ -43,7 +49,12 @@ export const bubbleSort: AlgorithmImplementation<number[], BubbleSortState> = {
       }
     }
     return {
-      state: { array: [...arr], i: arr.length - 1, j: arr.length - 2, swapped: false },
+      state: {
+        array: [...arr],
+        i: arr.length > 0 ? arr.length - 1 : 0,
+        j: arr.length > 1 ? arr.length - 2 : 0,
+        swapped: false
+      },
       description: 'Масивът е сортиран.',
       highlightedLines: ['end']
     };

@@ -1,9 +1,25 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { ConditionalsVisualizer } from '@/components/visualizers/conditionals/conditionals-visualizer';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { conditionalsLessons } from '@/content/lessons/conditionals';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComplexityBadge } from '@/components/common/complexity-badge';
+import { MonacoSnippet } from '@/components/common/monaco-snippet';
+
+const CONDITIONALS_CSHARP_CODE = `static string CheckAccess(int age, bool hasTicket)
+{
+    if (age < 18)
+    {
+        return "Нужен е придружител.";
+    }
+
+    if (hasTicket)
+    {
+        return "Добре дошли!";
+    }
+
+    return "Моля, закупете билет.";
+}`;
 
 export const metadata: Metadata = {
   title: 'Условни оператори | CS Visual Lab',
@@ -13,6 +29,10 @@ export const metadata: Metadata = {
 
 export default function ConditionalsModulePage() {
   const lesson = conditionalsLessons.basics;
+
+  if (!lesson) {
+    throw new Error('Липсва дефиниция за урока в модула „Условия“.');
+  }
 
   return (
     <div className="container space-y-12 py-12">
@@ -62,6 +82,14 @@ export default function ConditionalsModulePage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold text-slate-900">Визуализация</h2>
         <ConditionalsVisualizer />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold text-slate-900">Пример на C# код</h2>
+        <p className="text-sm text-slate-600">
+          Сравнете условните оператори във визуализацията с реална C# имплементация.
+        </p>
+        <MonacoSnippet language="csharp" title="Условни оператори (C#)" code={CONDITIONALS_CSHARP_CODE} />
       </section>
 
       <section className="space-y-6">

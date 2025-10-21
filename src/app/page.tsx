@@ -45,7 +45,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button size="lg" asChild>
-              <Link href="/(modules)/algorithms">
+              <Link href="/algorithms">
                 Започни с алгоритмите
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
               </Link>
