@@ -103,7 +103,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <Button variant="outline" asChild className="w-full">
-                  <Link href={SITE_LINKS[index]?.href.replace('/(modules)', '') ?? '#'}>
+                  <Link href={SITE_LINKS[index]?.href ?? '/'}>
                     Отвори модула
                   </Link>
                 </Button>

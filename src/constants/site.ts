@@ -2,19 +2,19 @@ export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'CS Visual Lab';
 
 export const SITE_LINKS = [
   {
-    href: '/(modules)/conditionals',
+    href: '/conditionals',
     label: 'Условия'
   },
   {
-    href: '/(modules)/loops',
+    href: '/loops',
     label: 'Цикли'
   },
   {
-    href: '/(modules)/data-structures',
+    href: '/data-structures',
     label: 'Структури от данни'
   },
   {
-    href: '/(modules)/algorithms',
+    href: '/algorithms',
     label: 'Алгоритми'
   }
 ] as const;
