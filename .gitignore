@@ -14,3 +14,7 @@ coverage/
 playwright-report/
 test-results/
 *.log
+# Next/Vercel артефакти
+.next
+.vercel
+out
