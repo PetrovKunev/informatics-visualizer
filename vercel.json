@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm install && pnpm build",
+  "buildCommand": "pnpm build",
   "outputDirectory": ".vercel/output",
   "framework": "nextjs",
   "regions": ["fra1"],
