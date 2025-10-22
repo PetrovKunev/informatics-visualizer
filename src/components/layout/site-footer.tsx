@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from 'next';
 import Link from 'next/link';
 import { Github } from 'lucide-react';
 import { APP_NAME, FOOTER_DISCLAIMER, SITE_LINKS } from '@/constants/site';
@@ -16,11 +17,14 @@ export function SiteFooter() {
           <div>
             <p className="font-semibold text-slate-900">Модули</p>
             <nav className="mt-2 flex flex-col gap-1">
-              {SITE_LINKS.map((link) => (
-                <Link key={link.href} href={link.href.replace('/(modules)', '')} className="hover:text-brand-600">
-                  {link.label}
-                </Link>
-              ))}
+              {SITE_LINKS.map((link) => {
+                const href = link.href.replace('/(modules)', '') as Route;
+                return (
+                  <Link key={link.href} href={href} className="hover:text-brand-600">
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
           <div>

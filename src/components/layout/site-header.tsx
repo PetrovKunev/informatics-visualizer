@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from 'next';
 import Link from 'next/link';
 import { Menu, Moon, Sun } from 'lucide-react';
 import { usePathname } from 'next/navigation';
@@ -24,7 +25,8 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-2 md:flex">
           {SITE_LINKS.map((link) => {
-            const isActive = pathname.startsWith(link.href.replace('/(modules)', ''));
+            const href = link.href.replace('/(modules)', '') as Route;
+            const isActive = pathname.startsWith(href);
             return (
               <Button
                 key={link.href}
@@ -32,7 +34,7 @@ export function SiteHeader() {
                 size="sm"
                 asChild
               >
-                <Link href={link.href.replace('/(modules)', '')}>{link.label}</Link>
+                <Link href={href}>{link.label}</Link>
               </Button>
             );
           })}
@@ -68,11 +70,12 @@ export function SiteHeader() {
             <DialogContent className="md:hidden">
               <nav className="flex flex-col gap-2">
                 {SITE_LINKS.map((link) => {
-                  const isActive = pathname.startsWith(link.href.replace('/(modules)', ''));
+                  const href = link.href.replace('/(modules)', '') as Route;
+                  const isActive = pathname.startsWith(href);
                   return (
                     <Link
                       key={link.href}
-                      href={link.href.replace('/(modules)', '')}
+                      href={href}
                       className={cn(
                         'rounded-xl px-3 py-2 text-sm font-semibold transition',
                         isActive ? 'bg-brand-100 text-brand-600' : 'text-slate-700 hover:bg-slate-100'
