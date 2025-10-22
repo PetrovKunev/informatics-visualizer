@@ -10,7 +10,8 @@ const nextConfig = {
   i18n: {
     locales: ['bg', 'en'],
     defaultLocale: 'bg'
-  }
+  },
+  output: 'standalone'
 };
 
 export default nextConfig;
