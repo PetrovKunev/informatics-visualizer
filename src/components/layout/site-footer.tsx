@@ -32,9 +32,14 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="https://github.com" target="_blank" className="inline-flex items-center gap-1 hover:text-brand-600">
+                <Link
+                  href="https://github.com/PetrovKunev/informatics-visualizer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-brand-600"
+                >
                   <Github className="h-4 w-4" aria-hidden />
-                  Репозитория
+                  GitHub
                 </Link>
               </li>
             </ul>
@@ -42,7 +47,11 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-slate-200 bg-slate-100 py-4 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} {APP_NAME}. Всички права запазени за образователни цели.
+        © {new Date().getFullYear()}{' '}
+        <Link href="https://kunev.dev" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">
+          kunev.dev
+        </Link>{' '}
+        {APP_NAME}. Всички права запазени за образователни цели.
       </div>
     </footer>
   );
